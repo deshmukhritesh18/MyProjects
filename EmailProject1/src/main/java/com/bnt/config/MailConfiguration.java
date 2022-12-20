@@ -12,18 +12,26 @@ public class MailConfiguration {
 	@Bean
 	public JavaMailSender getJavaMailSender() {
 		JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
+		
+		try {
+			javaMailSenderImpl.setHost("smtp.gmail.com");
+			javaMailSenderImpl.setUsername("deshmukhritesh18@gmail.com");
+			javaMailSenderImpl.setPassword("");//xrtyzfhwuynpjvrk
+			javaMailSenderImpl.setPort(587);
+			Properties mailProperties = new Properties();
+			mailProperties.put("mail.smtp.starttls.enable", true);
+			mailProperties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
-		javaMailSenderImpl.setHost("smtp.gmail.com");
-		javaMailSenderImpl.setUsername("deshmukhritesh18@gmail.com");
-		javaMailSenderImpl.setPassword("ogeztntcouqmcosv");
-		javaMailSenderImpl.setPort(587);
+			javaMailSenderImpl.setJavaMailProperties(mailProperties);
+			return javaMailSenderImpl;
+			
+		} catch (Exception e) {
+			System.out.println("invalid credentials ");
+		}
 
-		Properties mailProperties = new Properties();
-		mailProperties.put("mail.smtp.starttls.enable", true);
-		mailProperties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+		return null;
 
-		javaMailSenderImpl.setJavaMailProperties(mailProperties);
-		return javaMailSenderImpl;
+		
 	}
 
 }
